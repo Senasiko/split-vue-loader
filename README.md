@@ -8,7 +8,7 @@ the `.vue` single file is awesome. But the disadvantage is that can't use type s
 
 split every vue file block to single file is useful for using type system.
 
-##usage
+## usage
 
 `yarn add -D split-vue-loader`
 
@@ -19,10 +19,12 @@ const { SplitVuePlugin } = require('split-vue-loader');
 module.exports = {
   module: {
     rules: [
+      // ...template loader
       {
         test: /(?<!_vue)\.ts$/,
         loader: 'ts-loader',
       }
+      // ...style loader
     ]
   },
   plugins: [
@@ -34,9 +36,10 @@ module.exports = {
 
 
 
-**SplitVuePlugin must be after for VueLoaderPlugin**
+*SplitVuePlugin must be after for VueLoaderPlugin*
 
 ### before
+> index.vue
 
 ```vue
 <template lang="html">
@@ -51,7 +54,6 @@ module.exports = {
   </div>
 </template>
 <script lang="ts">
-// index.vue
 import { defineComponent, ref } from '@vue/runtime-dom';
 
 export default defineComponent({
@@ -81,7 +83,7 @@ div {
 
 > idnex_vue.ts
 
-import template and style block file by `split-vue(...):`
+*import template and style block file by `split-vue(...):`*
 
 ```ts
 // split-vue(template): './index_vue.html'
@@ -103,7 +105,7 @@ export default defineComponent({
 
 ```
 
-> Index_vue.html
+> index_vue.html
 
 ```html
 <div>
@@ -111,14 +113,14 @@ export default defineComponent({
     count: {{ count }}
   </h1>
   <button 
-  @click="addd">
+  @click="add">
     +1
   </button>
 </div>
 
 ```
 
-> Index_vue.scss
+> index_vue.scss
 
 ```scss
 // scoped will automatically add
